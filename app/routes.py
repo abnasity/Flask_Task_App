@@ -1,5 +1,10 @@
+from flask import render_template
 from app import app
+from app.models import User
 
-@app.route('/home')
+
+@app.route('/')
 def home():
-    return "<h1>Welcome to the task manager!</>"
+    users = User.query.all()
+    return render_template('index.html', users=users)
+
