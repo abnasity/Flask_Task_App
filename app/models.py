@@ -23,3 +23,5 @@ class Task(db.Model):
     completed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
+    def __repr__(self):
+        return f"{self.title} - {self.description}"
