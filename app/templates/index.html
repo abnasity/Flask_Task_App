@@ -1,21 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task App</title>
-</head>
-<body>
-    <h1>USERS</h1>
-     <ul style="list-style-type: none; color: rgb(0, 72, 90);">
-        {% for user in users %}
-        <li>
-         {{ loop.index }}.  {{ user }}
+{% extends "base.html" %}
 
-        </li>
+{% block content %}
+<h1>welcome to task app</h1>
 
-        {% endfor %}
-     </ul>
-    
-</body>
-</html>
+<div class="py-5 text-center">
+    <h1 class="display-4 mb-3">Welcome to MyApp</h1>
+    <p class="lead">A simple demo of Flask + Bootstrap layout</p>
+   
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Feature One</h5>
+          <p class="card-text">Short description of feature one. Use <code>.text-muted</code> for lighter text.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Feature Two</h5>
+          <p class="card-text">Short description of feature two.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Feature Three</h5>
+          <p class="card-text">Short description of feature three.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
