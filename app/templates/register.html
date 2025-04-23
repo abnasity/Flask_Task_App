@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+<h1>User Registration</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    {{ message }}
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<form action="{{url_for('register')}}" method="post">
+
+  {{ user_form.hidden_tag() }}
+
+  {{ user_form.username.label(class="form-label") }}
+  {{ user_form.username(class="form-control w=50") }}
+
+
+  {{ user_form.first_name.label(class="form-label") }}
+  {{ user_form.first_name(class="form-control w=50") }}
+
+  {{ user_form.last_name.label(class="form-label") }}
+  {{ user_form.last_name(class="form-control w=50") }}
+
+  {{ user_form.password.label(class="form-label") }}
+  {{ user_form.password(class="form-control w=50") }}
+  
+  {{ user_form.submit(class="btn-primary") }}
+
+</form>
+
+</div>
+{% endblock %}
