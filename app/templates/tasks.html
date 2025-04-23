@@ -2,80 +2,40 @@
 
 {% block content %}
 
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f7fa;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 30px;
-    }
-
-    .task-list {
-      display: grid;
-      gap: 15px;
-    }
-
-    .task-card {
-      background-color: #f0ffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      padding: 20px;
-      border-left: 5px solid #4CAF50;
-      transition: transform 0.2s ease;
-    }
-
-    .task-card:hover {
-      transform: scale(1.01);
-    }
-
-    .task-title {
-      font-size: 18px;
-      margin: 0 0 10px;
-      color: #3202df;
-    }
-
-    .task-desc {
-      font-size: 14px;
-      color: #0a5001;
-    }
-
-    .no-tasks {
-      text-align: center;
-      color: #0e5d8b;
-      font-size: 16px;
-    }
-  </style>
-</head>
-<body>
+  
   <div class="container">
+
     <h1>My Tasks</h1>
-    
-    {% if tasks %}
-    <div class="task-list">
-      {% for task in tasks %}
-      <div class="task-card">
-        <div class="task-title">{{ task.title }}</div>
-        <div class="task-desc">{{ task.description }}</div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
       </div>
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="no-tasks">No tasks available.</div>
+    {% endfor %}
     {% endif %}
-  </div>
-</body>
-</html>
+    {% endwith %}
+    
+<form action="{{ url_for('tasks')}}" method="post">
+  
+  {{ form.hidden_tag() }}
+
+       {{ form.title.label(class="form-label") }}
+       {{ form.title(size=100, class="form-control w=50") }}
+  
+       {{ form.description.label(class="form-label") }}
+       {{ form.description(class="form-control w=50") }}
+
+    
+       {{ form.completed.label(class="form-label") }}
+       {{ form.completed(class="form-checkbox ") }}
+<div>     
+    {{ form.submit }}
+</div>
+
+      </form>
+
+
 
 {% endblock %}
 
