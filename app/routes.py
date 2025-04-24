@@ -27,8 +27,8 @@ def register():
         
         db.session.add(new_user)
         db.session.commit()
-        flash('User registered successfully!', 'success')
-        return redirect(url_for('home'))
+        flash(f'registration for {new_user.first_name} successfully!', 'success')
+        return redirect(url_for('register'))
     print(form.errors)
     return render_template('register.html',title='Register', user_form=form)
     
@@ -43,16 +43,38 @@ def tasks():
             title=form.title.data,
             description=form.description.data,
             completed=form.completed.data,
-            user_id=1  # Assuming a user ID of 1 for simplicity
+            user_id=1  
         )
         db.session.add(new_task)
         db.session.commit()
-        flash('Task added successfully!', 'success')
+        flash(f'Task {new_task.title} added successfully!', 'success')
         return redirect(url_for('tasks'))
     print(form.errors)
     return render_template('tasks.html', title='Tasks', form=form)
 
+@app.route('/toggle_task/<int:task_id>' , methods=['POST'])
+def toggle_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    task.completed = not task.completed
+    db.session.commit()
+    flash(f'Task {task.title} updated successfully!', 'success')
+    return redirect(url_for('home'))
 
 
 
 
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    flash(f'User {user.username} deleted successfully!', 'success')
+    return redirect(url_for('home'))
+
+@app.route('/delete_task/<int:task_id>', methods=['POST'])
+def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    flash(f'Task {task.title} deleted successfully!', 'success')
+    return redirect(url_for('home'))
