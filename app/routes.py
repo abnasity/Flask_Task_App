@@ -9,6 +9,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 
 
+# HOME ROUTE
+
 @app.route('/')
 
 def home():
@@ -20,6 +22,8 @@ def home():
   
     return render_template('index.html', user_count=user_count, tasks=tasks, users=users, task_count=task_count, title='Home')
 
+
+# REGISTER ROUTE
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     users = User.query.all()
@@ -40,7 +44,7 @@ def register():
     
 
 
-
+# TASKS ROUTE
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def tasks():
@@ -62,7 +66,7 @@ def tasks():
    
     return render_template('tasks.html', title='Tasks', tasks=Task.query.filter_by(user_id=current_user.id), form=form)
 
-
+# TOGGLE TASKS ROUTE
 @app.route('/toggle_task/<int:task_id>' , methods=['POST'])
 @login_required
 def toggle_task(task_id):
@@ -74,7 +78,7 @@ def toggle_task(task_id):
 
 
 
-
+# DELETE USER ROUTE
 @app.route('/delete_user/<int:user_id>', methods=['POST'])
 @login_required
 def delete_user(user_id):
@@ -84,6 +88,7 @@ def delete_user(user_id):
     flash(f'User {user.username} deleted successfully!', 'success')
     return redirect(url_for('home'))
 
+# DELETE TASK ROUTE
 @app.route('/delete_task/<int:task_id>', methods=['POST'])
 @login_required
 def delete_task(task_id):
@@ -100,6 +105,7 @@ def delete_task(task_id):
     flash(f'Task {task.title} deleted successfully!', 'success')
     return redirect(url_for('tasks'))
 
+# EDIT TASK ROUTE
 @app.route('/edit_task/<int:task_id>', methods=['GET', 'POST'])
 @login_required
 def edit_task(task_id):
@@ -124,7 +130,7 @@ def edit_task(task_id):
         
     return render_template('tasks.html', title='Edit Tasks', tasks=tasks, form=form, edit_mode=True)
 
-
+# LOGIN ROUTE
 @app.route('/login', methods=['GET', 'POST'])
 
 def login():
@@ -145,6 +151,7 @@ def login():
     return render_template('login.html', title='Login', login_form=form)
 
 
+# LOGOUT ROUTE
 @app.route('/logout')
 @login_required
 def logout():
