@@ -40,7 +40,7 @@ def register():
         flash(f'registration for {new_user.first_name} successfully!', 'success')
         return redirect(url_for('register'))
     print(form.errors)
-    return render_template('register.html',title='Register',users=users, user_form=form)
+    return render_template('register.html', title='Register',users=users, user_form=form)
     
 
 
